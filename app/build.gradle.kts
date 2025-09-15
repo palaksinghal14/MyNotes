@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    // extra
     id("com.google.dagger.hilt.android")
     //id("org.jetbrains.kotlin.kapt")
     id("com.google.gms.google-services")

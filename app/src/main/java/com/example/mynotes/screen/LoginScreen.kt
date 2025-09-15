@@ -30,7 +30,10 @@ import javax.inject.Inject
 
 @Composable
 fun LoginScreen  (
-     viewmodel:AuthViewModel=hiltViewModel()
+     viewmodel:AuthViewModel=hiltViewModel(),
+     OnNavToSignUpPage:() -> Unit,
+     OnNavToHomePage:() -> Unit
+
 ){
     val state= viewmodel.state.value
 
@@ -74,12 +77,13 @@ fun LoginScreen  (
             Text(text = "Dont have an Account?")
 
             //navigation
-            TextButton(onClick = {  }) {
+            TextButton(onClick = { OnNavToSignUpPage() }) {
                 Text(text = "Sign Up")
             }
         }
 
     }
+
     when (state) {
         is AuthViewModel.AuthState.Idle -> { /* do nothing */ }
         is AuthViewModel.AuthState.isLoading -> {
@@ -88,6 +92,7 @@ fun LoginScreen  (
         is AuthViewModel.AuthState.Success -> {
             Text("Welcome ${state.user.email}")
             // or navigate to HomeScreen
+            OnNavToHomePage()
         }
         is AuthViewModel.AuthState.error -> {
             Text(state.msg, color = Color.Red)
@@ -98,7 +103,9 @@ fun LoginScreen  (
 
 @Composable
 fun SignUpScreen  (
-    viewmodel:AuthViewModel=hiltViewModel()
+    viewmodel:AuthViewModel=hiltViewModel(),
+    OnNavToSignInPage:() -> Unit,
+    OnNavToHomePage:() -> Unit
 ){
     val state= viewmodel.state.value
 
@@ -162,7 +169,7 @@ fun SignUpScreen  (
             Text(text = "Already have an Account?")
 
             //navigation
-            TextButton(onClick = { /*TODO*/ }) {
+            TextButton(onClick = { OnNavToSignInPage() }) {
                 Text(text = "Sign In")
             }
         }
@@ -175,13 +182,15 @@ fun SignUpScreen  (
         }
         is AuthViewModel.AuthState.Success -> {
             Text("Welcome ${state.user.email}")
-            // or navigate to HomeScreen
+            //  navigate to HomeScreen
+            OnNavToHomePage()
         }
         is AuthViewModel.AuthState.error -> {
             Text(state.msg, color = Color.Red)
         }
     }
 }
+
 
 
 

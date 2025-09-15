@@ -58,4 +58,6 @@ class AuthRepo @Inject constructor(
 
     // give us the current user object
     fun getCurrentuser(): FirebaseUser?=auth.currentUser
+
+
 }
